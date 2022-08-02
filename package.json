@@ -1,0 +1,29 @@
+{
+  "name": "rpp36-paul-reviews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp36-sdc-switch/rpp36-paul-reviews.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpp36-sdc-switch/rpp36-paul-reviews/issues"
+  },
+  "homepage": "https://github.com/rpp36-sdc-switch/rpp36-paul-reviews#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "supertest": "^6.2.4"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
