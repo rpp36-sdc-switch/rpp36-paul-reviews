@@ -4,8 +4,9 @@ const { Schema, model } = mongoose;
 mongoose.connect('mongodb://localhost/ratingsAndReviews');
 
 const reviewSchema = Schema({
-  review_id: { type: Number, unique: true, required: true},
-  rating: Number,
+  product_id: { type: Number, unique: true, required: true },
+  review_id: { type: Number, unique: true, required: true },
+  rating: { type: Number, min: 0, max: 5 },
   summary: String,
   recommend: Boolean,
   response: Number,
@@ -15,40 +16,40 @@ const reviewSchema = Schema({
   helpfulness: Number,
   photos: [
     {
-      id: { type: Number },
+      id: { type: Number, required: true },
       url: String
     }
   ]
 });
 
 const metaSchema = Schema({
-  product_id: Number,
+  product_id: { type: Number, required: true },
   ratings: {
-    1: Number,
-    2: Number,
-    3: Number,
-    4: Number,
-    5: Number
+    1: { type: Number, default: 0 },
+    2: { type: Number, default: 0 },
+    3: { type: Number, default: 0 },
+    4: { type: Number, default: 0 },
+    5: { type: Number, default: 0 }
   },
   recommend: {
-    false: Number,
-    true: Number
+    false: { type: Number, default: 0 },
+    true: { type: Number, default: 0 }
   },
   characteristics: {
     Fit: {
-      id: Number,
+      id: { type: Number, required: true },
       value: Schema.Types.Decimal128
     },
     Length: {
-      id: Number,
+      id: { type: Number, required: true },
       value: Schema.Types.Decimal128
     },
     Comfort: {
-      id: Number,
+      id: { type: Number, required: true },
       value: Schema.Types.Decimal128
     },
     Quality: {
-      id: Number,
+      id: { type: Number, required: true },
       value: Schema.Types.Decimal128
     }
   }
