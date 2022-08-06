@@ -51,6 +51,14 @@ const metaSchema = Schema({
     Quality: {
       id: { type: Number, required: true },
       value: Schema.Types.Decimal128
+    },
+    Size: {
+      id: { type: Number, required: true },
+      value: Schema.Types.Decimal128
+    },
+    width: {
+      id: { type: Number, required: true },
+      value: Schema.Types.Decimal128
     }
   }
 });
