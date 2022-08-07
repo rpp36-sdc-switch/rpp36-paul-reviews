@@ -25,7 +25,6 @@ CREATE TABLE Photo (
 );
 
 
-
 CREATE TABLE Ratings (
   productId INT UNIQUE NOT NULL,
   `1` INT NOT NULL DEFAULT 0,
@@ -41,54 +40,12 @@ CREATE TABLE Recommended (
   `false` INT DEFAULT 0
 );
 
-CREATE TABLE Size (
-  id INT NOT NULL,
-  value TEXT,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE Width (
-  id INT NOT NULL,
-  value TEXT,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE Fit (
-  id INT NOT NULL,
-  value FLOAT,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE Length (
-  id INT NOT NULL,
-  value FLOAT,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE Comfort (
-  id INT NOT NULL,
-  value FLOAT,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE Quality (
-  id INT NOT NULL,
-  value FLOAT,
-  PRIMARY KEY (id)
-);
-
 CREATE TABLE Characteristics (
   productId INT UNIQUE NOT NULL,
-  Size INT,
-  Width INT,
-  Fit INT,
-  Length INT,
-  Comfort INT,
-  Quality INT,
-  FOREIGN KEY (Size) REFERENCES Size(id),
-  FOREIGN KEY (Width) REFERENCES Width(id),
-  FOREIGN KEY (Fit) REFERENCES Fit(id),
-  FOREIGN KEY (Length) REFERENCES Length(id),
-  FOREIGN KEY (Comfort) REFERENCES Comfort(id),
-  FOREIGN KEY (Quality) REFERENCES Quality(id)
+  Size FLOAT,
+  Width FLOAT,
+  Fit FLOAT,
+  Length FLOAT,
+  Comfort FLOAT,
+  Quality FLOAT
 );
