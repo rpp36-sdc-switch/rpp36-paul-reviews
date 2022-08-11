@@ -1,67 +1,46 @@
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
-mongoose.connect('mongodb://localhost/ratingsAndReviews');
+mongoose.connect('mongodb://localhost/ratingsAndReviews')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.log(err));
 
 const reviewSchema = Schema({
-  product_id: { type: Number, unique: true, required: true },
-  review_id: { type: Number, unique: true, required: true },
+  id: { type: Number, unique: true, required: true },
+  product_id: { type: Number, required: true, index: true },
   rating: { type: Number, min: 0, max: 5 },
-  summary: String,
-  recommend: Boolean,
-  response: Number,
-  body: String,
   date: Date,
+  summary: String,
+  body: String,
+  recommend: Boolean,
+  reported: Boolean,
   reviewer_name: String,
-  helpfulness: Number,
-  photos: [
-    {
-      id: { type: Number, required: true },
-      url: String
-    }
-  ]
+  reviewer_email: String,
+  response: String,
+  helpfulness: Number
 });
 
-const metaSchema = Schema({
-  product_id: { type: Number, required: true },
-  ratings: {
-    1: { type: Number, default: 0 },
-    2: { type: Number, default: 0 },
-    3: { type: Number, default: 0 },
-    4: { type: Number, default: 0 },
-    5: { type: Number, default: 0 }
-  },
-  recommend: {
-    false: { type: Number, default: 0 },
-    true: { type: Number, default: 0 }
-  },
-  characteristics: {
-    Fit: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Length: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Comfort: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Quality: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Size: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    width: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    }
-  }
+const photoSchema = Schema({
+  id: { type: Number, required: true },
+  review_id: { type: Number, required: true, index: true },
+  url: String
 });
 
-const Review = model('Review', reviewSchema);
-const Meta = model('Meta', metaSchema);
+const characteristicsReviewsSchema = Schema({
+  id: {type: Number, required: true},
+  characteristic_id: {type: Number, required: true, index: true},
+  review_id: {type: Number, required: true, index: true},
+  value: Number
+});
+
+const characteristicsSchema = Schema({
+  id: {type: Number, required: true},
+  product_id: {type: Number, required: true, index: true},
+  name: String
+});
+
+exports.Review = model('Review', reviewSchema);
+exports.Photo = model('Photo', photoSchema);
+exports.CharRev = model('Characteristics_Reviews', characteristicsReviewsSchema);
+exports.Characteristics = model('Characteristics', characteristicsSchema);
+
