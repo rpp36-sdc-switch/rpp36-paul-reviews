@@ -1,67 +1,42 @@
-const mongoose = require('mongoose');
-const { Schema, model } = mongoose;
+var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/ratingsAndReviews');
+mongoose.connect('mongodb://localhost:27017/rnr');
 
-const reviewSchema = Schema({
-  product_id: { type: Number, unique: true, required: true },
-  review_id: { type: Number, unique: true, required: true },
-  rating: { type: Number, min: 0, max: 5 },
+var reviewSchema = new mongoose.Schema({
+  review_id: {type: Number, required: true, index: true},
+  product_id: {type: Number, required: true, index: true},
+  rating: Number,
+  date: {type: Date, default: Date.now},
   summary: String,
-  recommend: Boolean,
-  response: Number,
   body: String,
-  date: Date,
+  recommend: Boolean,
+  reported: {type: Boolean, default: false},
   reviewer_name: String,
-  helpfulness: Number,
-  photos: [
-    {
-      id: { type: Number, required: true },
-      url: String
-    }
-  ]
-});
-
-const metaSchema = Schema({
-  product_id: { type: Number, required: true },
-  ratings: {
-    1: { type: Number, default: 0 },
-    2: { type: Number, default: 0 },
-    3: { type: Number, default: 0 },
-    4: { type: Number, default: 0 },
-    5: { type: Number, default: 0 }
-  },
-  recommend: {
-    false: { type: Number, default: 0 },
-    true: { type: Number, default: 0 }
-  },
+  reviewer_email: String,
+  response: String,
+  helpfulness: {type: Number, default: 0},
+  photos: [{
+    id: Number,
+    url: String
+  }],
   characteristics: {
-    Fit: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Length: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Comfort: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Quality: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    Size: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    },
-    width: {
-      id: { type: Number, required: true },
-      value: Schema.Types.Decimal128
-    }
+    Quality: Number,
+    Fit: Number,
+    Comfort: Number,
+    Length: Number,
+    Size: Number,
+    Width: Number
   }
 });
 
-const Review = model('Review', reviewSchema);
-const Meta = model('Meta', metaSchema);
+var characteristicScema = new mongoose.Schema({
+  characteristic_id: {type: Number, index: true, default: null},
+  product_id: {type: Number, index: true},
+  review_id: { type: Number, required: true, index: true},
+  name: String,
+  value: Number
+});
+
+exports.Review = mongoose.model('Review', reviewSchema);
+exports.Characteristic = mongoose.model('Characteristic', characteristicScema);
+

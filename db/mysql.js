@@ -1,9 +1,10 @@
+require('dotenv').config();
 const mysql = require('mysql');
 
 const con = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PWD,
   database: 'ratingsAndReviews'
 });
 

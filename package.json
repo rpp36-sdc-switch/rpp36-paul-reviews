@@ -19,11 +19,11 @@
   "homepage": "https://github.com/rpp36-sdc-switch/rpp36-paul-reviews#readme",
   "dependencies": {
     "dotenv": "^16.0.1",
-    "eslint-config-hackreactor": "github:reactorcore/eslint-config-hackreactor",
     "express": "^4.18.1",
     "mongoose": "^6.5.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "papaparse": "^5.3.2",
     "sequelize": "^6.21.3"
   },
   "devDependencies": {
